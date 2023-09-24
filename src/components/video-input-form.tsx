@@ -11,13 +11,6 @@ import { useTranslation } from "react-i18next";
 
 type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success';
 
-const statusMessages = {
-  converting: 'Convertendo...',
-  uploading: 'Carregando...',
-  generating: 'Transcrevendo...',
-  success: 'Sucesso!'
-}
-
 interface VideoInputFormProps {
   onVideoUploaded: (id: string) => void;
 }
@@ -27,6 +20,13 @@ export function VideoInputForm(props: VideoInputFormProps) {
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>('waiting');
 
+  const statusMessages = {
+    converting: t('status.converting'),
+    uploading: t('status.uploading'),
+    generating:  t('status.generating'),
+    success:  t('status.success'),
+  }
+  
   const promptInputRef = useRef<HTMLTextAreaElement>(null);
 
   function handleFileSelected(event: ChangeEvent<HTMLInputElement>) {
