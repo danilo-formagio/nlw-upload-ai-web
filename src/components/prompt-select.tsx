@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { api } from '@/lib/axios';
+import { useTranslation } from "react-i18next";
 
 interface Prompt {
   id: string;
+  language: string;
   title: string;
   template: string;
 }
@@ -13,13 +15,15 @@ interface PromptSelectProps {
 }
 
 export function PromptSelect(props: PromptSelectProps) {
+  const { t, i18n } = useTranslation();
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
 
   useEffect(() => {
     api.get('/prompts').then(response => {
-      setPrompts(response.data);
+      const promptsByLanguage = response?.data?.filter((prompt: Prompt) => prompt.language === i18n.language)
+      setPrompts(promptsByLanguage);
     });
-  }, []);
+  }, [i18n.language]);
 
   function handlePromptSelected(promptId: string) {
     const selectedPrompt = prompts?.find(prompt => prompt.id === promptId);
@@ -33,7 +37,7 @@ export function PromptSelect(props: PromptSelectProps) {
   return (
     <Select onValueChange={handlePromptSelected}>
       <SelectTrigger>
-        <SelectValue placeholder="Selecione um prompt..." />
+        <SelectValue placeholder={ t('promptPlaceholder') } />
       </SelectTrigger>
       <SelectContent>
         {prompts?.map(prompt => {

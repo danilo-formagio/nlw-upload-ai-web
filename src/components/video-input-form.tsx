@@ -7,6 +7,7 @@ import { ChangeEvent, FormEvent, useMemo, useRef, useState } from 'react';
 import { getFFmpeg } from "@/lib/ffmpeg";
 import { fetchFile } from "@ffmpeg/util";
 import { api } from "@/lib/axios";
+import { useTranslation } from "react-i18next";
 
 type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success';
 
@@ -22,6 +23,7 @@ interface VideoInputFormProps {
 }
 
 export function VideoInputForm(props: VideoInputFormProps) {
+  const { t, i18n } = useTranslation();
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [status, setStatus] = useState<Status>('waiting');
 
@@ -97,7 +99,8 @@ export function VideoInputForm(props: VideoInputFormProps) {
     setStatus('generating');
 
     await api.post(`/videos/${videoId}/transcription`, {
-      prompt
+      prompt,
+      language: i18n.language
     });
 
     setStatus('success');
@@ -125,7 +128,7 @@ export function VideoInputForm(props: VideoInputFormProps) {
           ) : (
             <>
               <FileVideo className="w-4 h-4" />
-              Selecione um vídeo
+              { t('videoSelect') }
             </>
           )}
       </label>
@@ -135,13 +138,13 @@ export function VideoInputForm(props: VideoInputFormProps) {
       <Separator />
 
       <div className="space-y-2">
-        <Label htmlFor="transcription_prompt">Prompt de transcrição</Label>
+        <Label htmlFor="transcription_prompt">{ t('transcriptionPromptTitle') }</Label>
         <Textarea
           ref={promptInputRef}
           id="transcription_prompt"
           disabled={status !== 'waiting'}
           className="h-20 leading-relaxed resize-none"
-          placeholder="Inclua palavras-chave mencionadas no vídeo separadas por vírgula (,)"
+          placeholder={t('transcriptionPromptPlaceholder')}
         />
       </div>
 
@@ -153,7 +156,7 @@ export function VideoInputForm(props: VideoInputFormProps) {
       >
         {status === 'waiting' ? (
           <>
-            Carregar vídeo
+            { t('videoSubmit') }
             <Upload className="w-4 h-4 ml-2" />
           </>
         ) : statusMessages[status]}

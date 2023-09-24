@@ -8,9 +8,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Slider } from "./components/ui/slider";
 import { VideoInputForm } from "./components/video-input-form";
 import { PromptSelect } from "./components/prompt-select";
-import { useCompletion } from "ai/react"
+import { useCompletion } from "ai/react";
+import { useTranslation } from "react-i18next";
+import { Trans } from 'react-i18next';
+import { LanguageSelect } from './components/language-select';
 
 export function App() {
+  const { t } = useTranslation();
   const [temperature, setTemperature] = useState(0.5);
   const [videoId, setVideoId] = useState<string | null>(null);
 
@@ -37,17 +41,21 @@ export function App() {
       <div className="px-6 py-3 flex items-center justify-between border-b">
         <h1 className="text-xl font-bold">upload.ai</h1>
 
+        <LanguageSelect />
+
         <div className="flex items-center gap-3">
           <span className="text-sm text-muted-foreground">
-            Desenvolvido com ❤ no NLW da Rocketseat
+            { t('headerText') }
           </span>
 
           <Separator orientation="vertical" className="h-6" /> 
 
-          <Button variant="outline">
-            <Github className="w-4 h-4 mr-2" />
-            Github
-          </Button>
+          <a href="https://github.com/danilo-formagio" target="_blank">
+            <Button variant="outline">
+              <Github className="w-4 h-4 mr-2" />
+              Github
+            </Button>
+          </a>
         </div>
       </div>
 
@@ -56,19 +64,25 @@ export function App() {
           <div className="grid grid-rows-2 gap-4 flex-1">
             <Textarea 
               className="resize-none p-4 leading-relaxed"
-              placeholder="Inclua o prompt para a IA..."
+              placeholder={ t('aiPromptPlaceholder') }
               value={input}
               onChange={handleInputChange}
             />
             <Textarea 
               className="resize-none p-4 leading-relaxed"
-              placeholder="Resultado gerado pela IA..." 
+              placeholder={ t('aiResultPlaceholder') }
               readOnly
               value={completion}
             />
           </div>
 
-          <p>Lembre-se: você pode utilizar a variável <code className="text-violet-400">{'{transcription}'}</code> no seu prompt para adicionar o conteúdo da transcrição do vídeo selecionado</p>
+          <p>
+            <Trans
+              i18nKey="footerText"
+              values={{key: 'transcription'}}
+              components={[<code className="text-violet-400"></code>]}
+            />
+          </p>
         </div>
 
         <aside className="w-80 space-y-6">
@@ -78,12 +92,12 @@ export function App() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label>Prompt</Label>
+              <Label>{ t('promptTitle') }</Label>
               <PromptSelect onPromptSelected={setInput} />
             </div>
             
             <div className="space-y-2">
-              <Label>Modelo</Label>
+              <Label>{ t('modelTitle') }</Label>
               <Select disabled defaultValue="gpt3.5">
                 <SelectTrigger>
                   <SelectValue />
@@ -93,14 +107,14 @@ export function App() {
                 </SelectContent>
               </Select>
               <span className="block text-xs text-muted-foreground italic">
-                Você poderá customizar essa opção em breve
+              { t('modelTip') }
               </span>
             </div>
 
             <Separator />
 
             <div className="space-y-4">
-              <Label>Temperatura</Label>
+              <Label>{ t('temperatureTitle') }</Label>
               <Slider
                 min={0}
                 max={1}
@@ -109,11 +123,11 @@ export function App() {
                 onValueChange={value => setTemperature(value[0])}
               />
               <span className="block text-xs text-muted-foreground italic leading-relaxed">
-                Valores mais altos tendem a deixar o resultado mais criativo e com possíveis erros.
+                { t('temperatureTip') }
               </span>
 
               <Button type="submit" disabled={isLoading} className="w-full">
-                Executar
+                { t('submit') }
                 <Wand2 className="w-4 h-4 ml-2" />
               </Button>
             </div>
