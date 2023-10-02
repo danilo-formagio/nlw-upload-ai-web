@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
-import { api } from "@/lib/axios";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { api } from '@/lib/axios';
+import { useTranslation } from 'react-i18next';
 
 interface Prompt {
   id: string;
@@ -25,16 +19,14 @@ export function PromptSelect(props: PromptSelectProps) {
   const [prompts, setPrompts] = useState<Prompt[] | null>(null);
 
   useEffect(() => {
-    api.get("/prompts").then((response) => {
-      const promptsByLanguage = response?.data?.filter(
-        (prompt: Prompt) => prompt.language === i18n.language,
-      );
+    api.get('/prompts').then(response => {
+      const promptsByLanguage = response?.data?.filter((prompt: Prompt) => prompt.language === i18n.language);
       setPrompts(promptsByLanguage);
     });
   }, [i18n.language]);
 
   function handlePromptSelected(promptId: string) {
-    const selectedPrompt = prompts?.find((prompt) => prompt.id === promptId);
+    const selectedPrompt = prompts?.find(prompt => prompt.id === promptId);
     if (!selectedPrompt) {
       return;
     }
@@ -45,10 +37,10 @@ export function PromptSelect(props: PromptSelectProps) {
   return (
     <Select onValueChange={handlePromptSelected}>
       <SelectTrigger>
-        <SelectValue placeholder={t("promptPlaceholder")} />
+        <SelectValue placeholder={t('promptPlaceholder')} />
       </SelectTrigger>
       <SelectContent>
-        {prompts?.map((prompt) => {
+        {prompts?.map(prompt => {
           return (
             <SelectItem key={prompt.id} value={prompt.id}>
               {prompt.title}
