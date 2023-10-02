@@ -6,7 +6,7 @@ import { Textarea } from "./components/ui/textarea";
 import { Label } from "./components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
 import { Slider } from "./components/ui/slider";
-import { VideoInputForm } from "./components/video-input-form";
+import { VideoSelect } from "./components/video-select";
 import { PromptSelect } from "./components/prompt-select";
 import { useCompletion } from "ai/react";
 import { useTranslation } from "react-i18next";
@@ -85,12 +85,12 @@ export function App() {
           </p>
         </div>
 
-        <aside className="w-80 space-y-6">
-          <VideoInputForm onVideoUploaded={setVideoId} />
+        <aside className="w-80 space-y-4">
+          <VideoSelect onVideoUploaded={setVideoId} />
 
           <Separator />
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label>{ t('promptTitle') }</Label>
               <PromptSelect onPromptSelected={setInput} />
