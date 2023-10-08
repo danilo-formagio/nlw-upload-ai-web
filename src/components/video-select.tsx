@@ -84,7 +84,7 @@ export function VideoSelect(props: VideoUploadProps) {
 
     await api.post(`/videos/${videoId}/transcription`, {
       prompt,
-      language: i18n.language
+      language: i18n.resolvedLanguage
     });
 
     setStatus('success');

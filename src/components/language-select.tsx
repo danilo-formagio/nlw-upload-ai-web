@@ -12,7 +12,7 @@ export function LanguageSelect() {
   return (
     <form className="flex items-center gap-3">
       <Label>{t('languagePlaceholder')}</Label>
-      <Select defaultValue={i18n.language} onValueChange={handleLanguageSelected}>
+      <Select defaultValue={i18n.resolvedLanguage} onValueChange={handleLanguageSelected}>
         <SelectTrigger className="w-28">
           <SelectValue placeholder={t('languagePlaceholder')} />
         </SelectTrigger>

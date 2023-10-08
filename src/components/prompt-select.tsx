@@ -20,10 +20,10 @@ export function PromptSelect(props: PromptSelectProps) {
 
   useEffect(() => {
     api.get('/prompts').then(response => {
-      const promptsByLanguage = response?.data?.filter((prompt: Prompt) => prompt.language === i18n.language);
+      const promptsByLanguage = response?.data?.filter((prompt: Prompt) => prompt.language === i18n.resolvedLanguage);
       setPrompts(promptsByLanguage);
     });
-  }, [i18n.language]);
+  }, [i18n.resolvedLanguage]);
 
   function handlePromptSelected(promptId: string) {
     const selectedPrompt = prompts?.find(prompt => prompt.id === promptId);
