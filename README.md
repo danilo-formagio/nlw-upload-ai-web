@@ -22,6 +22,8 @@ This project was created as part of Rocketseat NLW event: https://www.rocketseat
 
 ## Demo
 
+[upload-video-ai.webm](https://github.com/danilo-formagio/nlw-upload-ai-web/assets/5075904/517b0a35-df7b-4381-995c-fcad77c1eb99)
+
 [youtube-video-ai.webm](https://github.com/danilo-formagio/nlw-upload-ai-web/assets/5075904/60c271c1-ba40-4c9b-8fe1-0cbbb7bb8f2a)
 
 ## ⚡️ Quick start
