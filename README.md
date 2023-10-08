@@ -20,6 +20,10 @@ This project was created as part of Rocketseat NLW event: https://www.rocketseat
 [![FFMPEG](https://img.shields.io/badge/FFmpeg-007808.svg?style=for-the-badge&logo=FFmpeg&logoColor=white)](https://ffmpegwasm.netlify.app/)
 [![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 
+## Demo
+
+[youtube-video-ai.webm](https://github.com/danilo-formagio/nlw-upload-ai-web/assets/5075904/60c271c1-ba40-4c9b-8fe1-0cbbb7bb8f2a)
+
 ## ⚡️ Quick start
 
 ### Dependencies
