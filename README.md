@@ -72,3 +72,7 @@ npm run dev
 ```
 
 Access URL: http://localhost:5173/
+
+## 📖 License
+
+This project is under the MIT license.
